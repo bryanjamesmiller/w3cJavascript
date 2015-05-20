@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h3>Javascript Date() function</h3>
+<p id="date_function"></p>
+
+<h3>Javascript src.match() function - click lightbulb to turn it on or off</h3>
+<img id="src_match_function_image" src="pic_bulboff.gif" width="50" height="90">
+
+<h3>Javascript can change the CSS style of your HTML document</h3>
+<p id="style_changer">Click this text to change its style</p>
+
+<h3>JavaScript can validate input</h3>
+
+<label for="input_validation_number">Please input a number between 1 and 10:</label>
+<input id="input_validation_number" type="number">
+<p id="input_validation_output" style="font-style: italic; font-size: 17px"></p>
+
+<script>
+    document.getElementById('date_function').innerHTML = Date();
+
+    //Event-Listener function
+    var src_match_image_element = document.getElementById('src_match_function_image');
+    src_match_image_element.addEventListener("click", function()
+    {
+        if (src_match_image_element.src.match("pic_bulboff.gif")) {
+            src_match_image_element.src = "pic_bulbon.gif";
+        } else {
+            src_match_image_element.src = "pic_bulboff.gif";
+        }
+    });
+
+    //Closure and self-invoking function
+    var f1 = (function() {
+        var test = true;
+        var style_changer_element = document.getElementById('style_changer');
+        style_changer_element.addEventListener("click", function () {
+            if (test) {
+                style_changer_element.style.fontSize = "20px";
+                style_changer_element.style.color = "blue";
+                test = false;
+            } else {
+                style_changer_element.style.fontSize = "17px";
+                style_changer_element.style.color = "black";
+                test = true;
+            }
+        });
+    })()
+
+    var f2 = (function() {
+        document.getElementById("input_validation_number").addEventListener("change", function(){
+            var x, text;
+
+            // Get the value of the input field with id="numb"
+            x = document.getElementById("input_validation_number").value;
+
+            // If x is Not a Number or less than one or greater than 10
+            if (isNaN(x) || x < 1 || x > 10) {
+                text = "Input not valid";
+            } else {
+                text = "Input OK";
+            }
+            document.getElementById("input_validation_output").innerHTML = text;
+        });
+    })()
+</script>
+</body>
+</html>
