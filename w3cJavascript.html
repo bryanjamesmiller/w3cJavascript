@@ -1,25 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <title>Javascript W3C Tutorial</title>
+    <style>
+        h3{
+            color:darkcyan;
+        }
+    </style>
 </head>
 <body>
-<h3>Javascript Date() function</h3>
-<p id="date_function"></p>
+<div class="container">
+    <h3>Javascript Date() function</h3>
+    <p id="date_function"></p>
 
-<h3>Javascript src.match() function - click lightbulb to turn it on or off</h3>
-<img id="src_match_function_image" src="pic_bulboff.gif" width="50" height="90">
+    <h3>Javascript src.match() function - click lightbulb to turn it on or off</h3>
+    <img id="src_match_function_image" src="pic_bulboff.gif" width="50" height="90">
 
-<h3>Javascript can change the CSS style of your HTML document</h3>
-<p id="style_changer">Click this text to change its style</p>
+    <h3>Javascript can change the CSS style of your HTML document</h3>
+    <p id="style_changer">Click this text to change its style</p>
 
-<h3>JavaScript can validate input</h3>
+    <h3>JavaScript can validate input</h3>
 
-<label for="input_validation_number">Please input a number between 1 and 10:</label>
-<input id="input_validation_number" type="number">
-<p id="input_validation_output" style="font-style: italic; font-size: 17px"></p>
+    <label for="input_validation_number">Please input a number between 1 and 10:</label>
+    <input id="input_validation_number" type="number">
+    <p id="input_validation_output" style="font-style: italic; font-size: 17px"></p>
 
+    <h3>JavaScript can insert HTML code with innerHTML</h3>
+    <div id="inner_html_output"><p></p></div>
+
+    <h3>Use typeof to find the type of a variable.</h3>
+    <div id="typeof_output"></div>
+
+    <h3>You can use functions like variables.</h3>
+    <div id="function_like_var_output"></div>
+
+    <h3>Two different syntax to access Object properties.  Objects are name-value pairs in Javascript</h3>
+    <div id="car_object_output_1"></div>
+    <div id="car_object_output_2"></div>
+    <div id="car_object_output_3"></div>
+
+    <h3>JavaScript Scope</h3>
+    <div>In JavaScript, objects and functions are also variables.</div>
+    <div>In JavaScript, scope is the set of variables, objects, and functions you have access to. </div>
+    <div>JavaScript has function scope: The scope changes inside functions.</div>
+    <div>If you do not use the "var" keyword to declare a variable, that variable will have global scope, even if it's defined within a function.</div>
+
+    <h3>JavaScript Strings</h3>
+    <div>You can split a String into an Array by using the split(separator) function.</div>
+    <div id="split_this">The "separator" parameter determines what character will split the String up into Array indices.</div>
+    <div>Using the letter "a" as the "separator, the above sentence gets turned into an Array with the following number of indices: <span id="split_with_an_a"></span></div>
+    <div>Here's what the array looks like:</div>
+    <div id="splitted_array_output"></div>
+
+    <h3>Array Builder that alphabetizes automatically with .sort() function</h3>
+    <div id="useful_output"></div>
+
+    <h3>You cannot compare objects in Javascript. Don't make numbers Objects in Javascript.</h3>
+    <p>"Don't create Number objects. They slow down execution speed, and produce nasty side effects"</p>
+
+    <h3>You can use number methods on any reguar (non-object) numbers.</h3>
+    <p>The Number() method tries to convert *anything* to a number.</p>
+    <p>If used on Date(), the Number() method returns the number of milliseconds since 1.1.1970</p>
+    <div id="number_function"></div>
+
+
+
+
+</div>
+<!-- Javascript below -->
 <script>
     document.getElementById('date_function').innerHTML = Date();
 
@@ -49,7 +102,7 @@
                 test = true;
             }
         });
-    })()
+    })();
 
     var f2 = (function() {
         document.getElementById("input_validation_number").addEventListener("change", function(){
@@ -60,13 +113,71 @@
 
             // If x is Not a Number or less than one or greater than 10
             if (isNaN(x) || x < 1 || x > 10) {
-                text = "Input not valid";
+                text = "<div class='text-center bg-danger text-danger'>Input not valid</div>";
             } else {
-                text = "Input OK";
+                text = "<div class='text-center bg-primary text-primary'>Input OK</div>";
             }
             document.getElementById("input_validation_output").innerHTML = text;
         });
-    })()
+    })();
+
+    document.getElementById("inner_html_output").innerHTML = "<h4>This header was created with h4 tags and innerHTML.  </h4><p>You can't change " +
+    "the HTML with inner Text, but this may be a good thing, as innerHTML will erase whatever HTML you currently have within the ID scope.</p>"
+
+    //In JavaScript, an array is a special type of object. Therefore typeof [1,2,3,4] returns object.
+    var my_undefined_var;
+    var johns_name = "John";
+    var myString = typeof 3.14 + ", " + typeof false + ", " +
+            typeof [1,2,3,4] + ", " + typeof {name:'john', age:34} + ", " + typeof my_undefined_var  + ", " + typeof johns_name;
+
+    //Undefined gets returned if a variable has not been initialized yet.
+    //Any variable can be emptied by setting the value to undefined. The type will also be undefined
+    johns_name = undefined;
+    myString += ", " + typeof johns_name;
+
+    // In JavaScript null is "nothing". It is supposed to be something that doesn't exist.
+    // Unfortunately, in JavaScript, the data type of null is an object.
+    // W3C says that you can consider it a bug in JavaScript that typeof null is an object. It should be null.
+    // You can empty an object by setting it to null, but its typeof will still be object.  Probably better to set it to undefined, which has a typeof undefined
+    myString += ".  A undefined is typeof: " + typeof undefined + ".  A null is typeof: " + typeof null +
+    ".<br>Confusingly, (null === undefined) is: " + (null === undefined) + ", but (null == undefined) is: " + (null == undefined);
+    document.getElementById("typeof_output").innerHTML = myString;
+
+    function toCelsius(fahrenheit) {
+        return (5/9) * (fahrenheit-32);
+    }
+
+    var function_var_text = "A 100F temperature is " + toCelsius(100) + " Centigrade";
+    document.getElementById("function_like_var_output").innerText = function_var_text;
+
+    //Javascript Objects are containers for name-value pairs.  Values can be either properties or methods.
+    var carObject = {make:"Fiat", model:500, color:"white", getCarType:function(){return "This type of car is a: " + this.color + " " + this.make + " " + this.model;}};
+    //You can access properties with two different syntax:
+    document.getElementById("car_object_output_1").innerText = "Syntax 1: " + carObject.make;
+    document.getElementById("car_object_output_2").innerText = "Syntax 2: " + carObject["make"];
+    document.getElementById("car_object_output_3").innerText = "A method call: "  + carObject.getCarType();
+
+    //The split a String into an Array function split()
+    var text_to_split = document.getElementById("split_this").innerText.split("a");
+    document.getElementById("split_with_an_a").innerHTML = text_to_split.length;
+    //Outputting the array
+    var mySplitString = '';
+    for(var i = 0; i < text_to_split.length; i++){
+        mySplitString += text_to_split[i] + "<br>";
+    }
+    document.getElementById("splitted_array_output").innerHTML = mySplitString;
+
+    //This will take a string and make an array, and then alphabetize that array
+    var usefulString = "$return_array['life_sciences_credits'] = $this->life_sciences_credits;$return_array['engineering_credits'] = $this->engineering_credits;$return_array['ethics_and_policy_credits'] = $this->ethics_and_policy_credits;$return_array['statistics_credits'] = $this->statistics_credits;$return_array['alm_graduation_eligibility_tests'] = $alm_graduation_eligibility_tests;$return_array['total_credits_that_count_towards_graduation'] = $this->total_credits_that_count_towards_graduation;$return_array['gpa'] = $this->gpa2;$return_array['anthropology_and_archaeology_credits'] = $this->anthropology_and_archaeology_credits;$return_array['literature_credits'] = $this->literature_credits;$return_array['religion_credits'] = $this->religion_credits;$return_array['proseminar_credits'] = $this->proseminar_credits;$return_array['harvard_instructor_credits'] = $this->harvard_instructor_credits;$return_array['conc_electives_credits'] = $this->conc_electives_credits;$return_array['capt_credits'] = $this->capt_credits;$return_array['total_tuition'] = $this->total_tuition;$return_array['business_communication_cert_credits'] = $this->business_communication_cert_credits;$return_array['marketing_management_cert_credits'] = $this->marketing_management_cert_credits;$return_array['nonprofit_management_cert_credits'] = $this->nonprofit_management_cert_credits;$return_array['strategic_management_cert_credits'] = $this->strategic_management_cert_credits;$return_array['corporate_sustainability_and_innovation_cert_credits'] = $this->corporate_sustainability_and_innovation_cert_credits;$return_array['environmental_policy_and_international_development_cert_credits'] = $this->environmental_policy_and_international_development_cert_credits;$return_array['green_building_and_community_sustainability_cert_credits'] = $this->green_building_and_community_sustainability_cert_credits;$return_array['natural_resource_management_and_sustainable_ecosystems_cert_credits'] = $this->natural_resource_management_and_sustainable_ecosystems_cert_credits;$return_array['sustainability_cert_credits'] = $this->sustainability_cert_credits;$return_array['data_sci_cert_credits'] = $this->data_sci_cert_credits;$return_array['nanotech_cert_credits'] = $this->nanotech_cert_credits;$return_array['soft_eng_cert_credits'] = $this->soft_eng_cert_credits;$return_array['web_tech_cert_credits'] = $this->web_tech_cert_credits;$return_array['museum_studies_cert_credits'] = $this->museum_studies_cert_credits;$return_array['religious_studies_and_education_cert_credits'] = $this->religious_studies_and_education_cert_credits;$return_array['alm_eligible_to_graduate'] = $this->alm_eligible_to_graduate;$return_array['proseminar_test'] = $this->proseminar_test;$return_array['firstB_test'] = $this->firstB_test;$return_array['secondB_test'] = $this->secondB_test;$return_array['toefl_or_hs_diploma_test'] = $this->toefl_or_hs_diploma_test;$return_array['certificate_eligibility_tests'] = $this->certificate_eligibility_tests;$return_array['num_courses_planning'] = $this->num_courses_planning;$return_array['num_courses_tracking'] = $this->num_courses_tracking;$return_array['num_courses_timelines'] = $this->num_courses_timelines;$return_array['residency_credits'] = $this->residency_credits;$return_array['theor_math_prereq_test'] = $this->theor_math_prereq_test;$return_array['crws_test'] = $this->crws_test;";
+    usefulString = usefulString.split(";");
+    usefulString.sort();
+    var newString = '';
+    for(i = 0; i < usefulString.length; i++){
+        newString += usefulString[i] + ";" + "<br>";
+    }
+    document.getElementById("useful_output").innerHTML = newString;
+
+    document.getElementById("number_function").innerHTML = "For example, the number of milliseconds to right now is: " + Number(new Date());
 </script>
 </body>
 </html>
